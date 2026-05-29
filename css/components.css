@@ -311,7 +311,6 @@
 }
 
 /* ── NAV BAR ── */
-.navbar { display: none; }
 .navbar {
   position: fixed;
   bottom: 0;

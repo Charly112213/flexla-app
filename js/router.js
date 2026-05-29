@@ -66,7 +66,7 @@ const Router = {
       navbar.style.display = 'none';
       return;
     }
-    navbar.style.display = '';
+    navbar.style.display = 'flex';
     const map = {
       'page-dashboard':      'nav-accueil',
       'page-mon-compte':     'nav-compte',
@@ -136,4 +136,8 @@ const Router = {
   },
 };
 
-document.addEventListener('DOMContentLoaded', () => Router.init());
+document.addEventListener('DOMContentLoaded', () => {
+  // Cacher la navbar dès le chargement
+  document.querySelector('.navbar').style.display = 'none';
+  Router.init();
+});
