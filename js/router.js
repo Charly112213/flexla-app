@@ -61,13 +61,19 @@ const Router = {
   },
 
   _updateNavBar(pageId) {
+    const navbar = document.querySelector('.navbar');
+    if (pageId === 'page-connexion' || pageId === 'page-dashboard') {
+      navbar.style.display = 'none';
+      return;
+    }
+    navbar.style.display = '';
     const map = {
-      'page-dashboard':           'nav-accueil',
-      'page-mon-compte':          'nav-compte',
-      'page-mon-contrat':         'nav-contrat',
-      'page-mes-echeances':       'nav-echeances',
-      'page-suivi-vehicule':      'nav-entretiens',
-      'page-mes-factures':        'nav-factures',
+      'page-dashboard':      'nav-accueil',
+      'page-mon-compte':     'nav-compte',
+      'page-mon-contrat':    'nav-contrat',
+      'page-mes-echeances':  'nav-echeances',
+      'page-suivi-vehicule': 'nav-entretiens',
+      'page-mes-factures':   'nav-factures',
     };
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     const navId = map[pageId];
