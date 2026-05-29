@@ -1,0 +1,59 @@
+/* ── SKELETON ── */
+.skeleton {
+  background: var(--bg-subtle);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  color: transparent !important;
+  user-select: none;
+}
+.skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255,255,255,0.04) 50%,
+    transparent 100%);
+  animation: shimmer 1.5s infinite;
+}
+@keyframes shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ── STAGGER ── */
+.stagger-item {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* ── TAP FEEDBACK ── */
+.card {
+  transition: transform var(--t-fast) var(--ease-out),
+              border-color var(--t-fast) linear;
+}
+.card:active { transform: scale(0.97); }
+
+.doc-card {
+  transition: border-color var(--t-fast) linear;
+}
+.doc-card:active { border-color: var(--border-mid); }
+
+.btn-primary {
+  transition: opacity var(--t-fast) linear,
+              transform var(--t-fast) var(--ease-out);
+}
+.btn-primary:active {
+  opacity: 0.78;
+  transform: scale(0.97);
+}
+
+/* ── FADE IN (connexion) ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up {
+  animation: fadeUp 400ms var(--ease-out) both;
+}

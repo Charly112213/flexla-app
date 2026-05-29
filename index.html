@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Flexla</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ══ CONNEXION ══ -->
+  <div class="page active" id="page-connexion">
+    <div style="padding: 0 var(--pad-x); max-width: 400px; width: 100%; margin: auto;">
+
+      <img class="connexion-logo fade-up" src="Ressources/Logos/logo1.png" alt="Flexla">
+
+      <h2 class="connexion-title fade-up">Espace Chauffeur</h2>
+      <p class="connexion-sub fade-up">Connectez-vous pour accéder à votre espace.</p>
+
+      <form id="form-connexion">
+        <input class="input-field fade-up" type="email" placeholder="Adresse e-mail" autocomplete="email" required>
+        <input class="input-field fade-up" type="password" placeholder="Mot de passe" autocomplete="current-password" required>
+        <button class="btn-primary fade-up" type="submit">Se connecter</button>
+      </form>
+
+      <p class="connexion-link fade-up">Mot de passe oublié ?</p>
+
+    </div>
+  </div>
+
+  <!-- ══ DASHBOARD ══ -->
+  <div class="page" id="page-dashboard">
+
+    <div class="header">
+      <div class="header-left">
+        <img class="header-logo" src="Ressources/Logos/logo1.png" alt="Flexla">
+        <div class="header-greeting">
+          <h2>Bonjour Charly</h2>
+          <p id="dashboard-date">Vendredi 29 mai 2026</p>
+        </div>
+      </div>
+      <div class="avatar">CS</div>
+    </div>
+
+    <div class="banner">
+      <div>
+        <div class="banner-label">Mes échéances</div>
+        <div class="banner-date">3 juin 2026</div>
+        <div class="banner-km">2 187 km / 3 000 km</div>
+        <div class="banner-service">Prochain service — 15 juil. 2026</div>
+      </div>
+      <div class="banner-amount">
+        <div class="banner-amount-val">312 €</div>
+        <div class="banner-amount-label">estimé</div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card" data-page="page-mon-compte">
+        <div class="card-title">Mon Compte</div>
+        <div class="card-sub">Infos chauffeur</div>
+      </div>
+      <div class="card" data-page="page-mon-contrat">
+        <div class="card-title">Mon Contrat</div>
+        <div class="card-sub">Contrat · CGV · Assurance</div>
+      </div>
+      <div class="card" data-page="page-mes-echeances">
+        <div class="card-title">Mes Échéances</div>
+        <div class="card-sub">CT dans 2 mois</div>
+      </div>
+      <div class="card" data-page="page-suivi-vehicule">
+        <div class="card-title">Suivi de mon véhicule</div>
+        <div class="card-sub">CT dans 2 mois</div>
+      </div>
+      <div class="card" data-page="page-mes-factures">
+        <div class="card-title">Mes Factures</div>
+        <div class="card-sub">Dernière · mai 2026</div>
+      </div>
+      <div class="card" data-page="page-sinistre">
+        <div class="card-title">Sinistre &amp; Assistance</div>
+        <div class="card-sub">Déclarer · Urgence</div>
+      </div>
+    </div>
+
+    <div class="tesla-bar">
+      <div class="tesla-left">
+        <img class="tesla-logo" src="Ressources/Logos/tesla-logo.jpg" alt="Tesla">
+        <div class="tesla-model">Model 3</div>
+        <div class="tesla-status">
+          <div class="tesla-status-dot"></div>
+          En ligne
+        </div>
+      </div>
+      <img class="tesla-car"
+        src="https://static-assets.tesla.com/configurator/compositor?context=design_studio_2&options=$MT367,$PPSW,$W38C,$IBB4&view=STUD_FRONT34&model=m3&size=1920&bkba_opt=1&crop=0,0,0,0&overlay=0&"
+        alt="Tesla Model 3">
+    </div>
+
+  </div>
+
+  <!-- ══ MON COMPTE ══ -->
+  <div class="page" id="page-mon-compte">
+    <div class="header">
+      <div class="back-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
+      <div class="header-title">Mon Compte</div>
+    </div>
+    <p class="intro">Vos documents personnels fournis à Flexla. Appuyez pour consulter.</p>
+    <div class="doc-list">
+      <div class="doc-card">
+        <div><div class="doc-title">Carte d'identité</div><div class="doc-sub">Recto / Verso</div></div>
+        <div class="doc-right"><span class="doc-tag">PDF</span><div class="chevron"></div></div>
+      </div>
+      <div class="doc-card">
+        <div><div class="doc-title">Permis de conduire</div><div class="doc-sub">Recto / Verso</div></div>
+        <div class="doc-right"><span class="doc-tag">PDF</span><div class="chevron"></div></div>
+      </div>
+      <div class="doc-card">
+        <div><div class="doc-title">Adresse du logement</div><div class="doc-sub">Justificatif de domicile</div></div>
+        <div class="doc-right"><span class="doc-tag">PDF</span><div class="chevron"></div></div>
+      </div>
+      <div class="doc-card">
+        <div><div class="doc-title">Adresse de facturation</div><div class="doc-sub">KBIS entreprise</div></div>
+        <div class="doc-right"><span class="doc-tag">PDF</span><div class="chevron"></div></div>
+      </div>
+      <div class="doc-card">
+        <div><div class="doc-title">Carte VTC</div><div class="doc-sub">Recto / Verso</div></div>
+        <div class="doc-right"><span class="doc-tag">PDF</span><div class="chevron"></div></div>
+      </div>
+      <div class="doc-card">
+        <div><div class="doc-title">Attestation de conduite</div><div class="doc-sub">Droits à la conduite</div></div>
+        <div class="doc-right"><span class="doc-tag">PDF</span><div class="chevron"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ MON CONTRAT ══ -->
+  <div class="page" id="page-mon-contrat">
+    <div class="header">
+      <div class="back-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
+      <div class="header-title">Mon Contrat</div>
+    </div>
+    <p class="intro">Vos documents contractuels. Appuyez pour consulter.</p>
+    <div class="doc-list">
+      <div class="doc-card">
+        <div><div class="doc-title">Contrat de location</div><div class="doc-sub">Signé le 12 janv. 2026</div></div>
+        <div class="doc-right"><span class="doc-tag">PDF</span><div class="chevron"></div></div>
+      </div>
+      <div class="doc-card">
+        <div><div class="doc-title">CGV</div><div class="doc-sub">Conditions générales de vente</div></div>
+        <div class="doc-right"><span class="doc-tag">PDF</span><div class="chevron"></div></div>
+      </div>
+      <div class="doc-card">
+        <div><div class="doc-title">Contrat d'assurance</div><div class="doc-sub">Tous Risques + RCC</div></div>
+        <div class="doc-right"><span class="doc-tag">PDF</span><div class="chevron"></div></div>
+      </div>
+      <div class="doc-card">
+        <div><div class="doc-title">Assurance transport à titre onéreux</div><div class="doc-sub">VTC — en cours de validité</div></div>
+        <div class="doc-right"><span class="doc-tag">PDF</span><div class="chevron"></div></div>
+      </div>
+      <div class="doc-card">
+        <div><div class="doc-title">État des lieux initial</div><div class="doc-sub">À la prise en charge du véhicule</div></div>
+        <div class="doc-right"><span class="doc-tag">PDF</span><div class="chevron"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ MES ÉCHÉANCES ══ -->
+  <div class="page" id="page-mes-echeances">
+    <div class="header">
+      <div class="back-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
+      <div class="header-title">Mes Échéances</div>
+    </div>
+    <div class="placeholder">
+      <p>En cours de développement</p>
+    </div>
+  </div>
+
+  <!-- ══ SUIVI DE MON VÉHICULE ══ -->
+  <div class="page" id="page-suivi-vehicule">
+    <div class="header">
+      <div class="back-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
+      <div class="header-title">Suivi de mon véhicule</div>
+    </div>
+    <div class="placeholder">
+      <p>En cours de développement</p>
+    </div>
+  </div>
+
+  <!-- ══ MES FACTURES ══ -->
+  <div class="page" id="page-mes-factures">
+    <div class="header">
+      <div class="back-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
+      <div class="header-title">Mes Factures</div>
+    </div>
+    <div class="placeholder">
+      <p>En cours de développement</p>
+    </div>
+  </div>
+
+  <!-- ══ SINISTRE & ASSISTANCE ══ -->
+  <div class="page" id="page-sinistre">
+    <div class="header">
+      <div class="back-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
+      <div class="header-title">Sinistre &amp; Assistance</div>
+    </div>
+    <div class="placeholder">
+      <p>En cours de développement</p>
+    </div>
+  </div>
+
+  <!-- ══ NAV BAR ══ -->
+  <nav class="navbar">
+    <div class="nav-item active" id="nav-accueil" data-page="page-dashboard">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+      <span>Accueil</span>
+    </div>
+    <div class="nav-item" id="nav-compte" data-page="page-mon-compte">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      <span>Compte</span>
+    </div>
+    <div class="nav-item" id="nav-contrat" data-page="page-mon-contrat">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>
+      <span>Contrat</span>
+    </div>
+    <div class="nav-item" id="nav-echeances" data-page="page-mes-echeances">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span>Échéances</span>
+    </div>
+    <div class="nav-item" id="nav-entretiens" data-page="page-suivi-vehicule">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+      <span>Véhicule</span>
+    </div>
+    <div class="nav-item" id="nav-factures" data-page="page-mes-factures">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16l3-2 2 2 2-2 2 2 3 2V4a2 2 0 0 0-2-2z"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="13" y2="13"/></svg>
+      <span>Factures</span>
+    </div>
+  </nav>
+
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/animations.js"></script>
+<script src="js/router.js"></script>
+
+</body>
+</html>

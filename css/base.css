@@ -1,0 +1,84 @@
+/* ── RESET ── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 14px;
+  line-height: 1.5;
+  display: flex;
+  justify-content: center;
+}
+
+/* ── WRAPPER ── */
+#app {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ── SYSTÈME DE PAGES ── */
+.page {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: var(--pad-top) var(--pad-x) var(--pad-bottom);
+  transform: translateX(100%);
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+  background: var(--bg);
+}
+
+.page.active {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: all;
+}
+
+.page.slide-in {
+  transition: transform var(--t-normal) var(--ease-out),
+              opacity  var(--t-normal) var(--ease-out);
+}
+
+.page.slide-out-left {
+  transform: translateX(-28%);
+  opacity: 0;
+  transition: transform var(--t-normal) var(--ease-smooth),
+              opacity  280ms var(--ease-smooth);
+  pointer-events: none;
+}
+
+.page.slide-out-right {
+  transform: translateX(100%);
+  opacity: 0;
+  transition: transform 280ms var(--ease-smooth),
+              opacity  280ms var(--ease-smooth);
+  pointer-events: none;
+}
+
+/* Page connexion = pas de translation */
+#page-connexion {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: all;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 0;
+  padding-bottom: 0;
+}
