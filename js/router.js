@@ -28,6 +28,7 @@ const Router = {
     this.history.push(this.current);
     this.current = pageId;
 
+    nextEl.scrollTop = 0;
     this._updateNavBar(pageId);
     this._onPageEnter(pageId);
   },
