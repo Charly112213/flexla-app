@@ -84,12 +84,22 @@ const Router = {
     }
   },
 
+  _fillDashboard() {
+    const prenom = document.getElementById('dashboard-prenom');
+    const date   = document.getElementById('dashboard-date');
+    const avatar = document.getElementById('dashboard-avatar');
+    if (prenom) prenom.textContent = Data.chauffeur.prenom;
+    if (date)   date.textContent   = Data.date;
+    if (avatar) avatar.textContent = Data.chauffeur.initiales;
+  },
+
   init() {
-    // Connexion submit
+    // Connexion submit — n'importe quoi fonctionne
     const form = document.getElementById('form-connexion');
     if (form) {
       form.addEventListener('submit', (e) => {
         e.preventDefault();
+        this._fillDashboard();
         this.navigate('page-dashboard');
       });
     }

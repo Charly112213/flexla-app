@@ -23,7 +23,7 @@
       <p class="connexion-sub fade-up">Connectez-vous pour accéder à votre espace.</p>
 
       <form id="form-connexion">
-        <input class="input-field fade-up" type="email" placeholder="Adresse e-mail" autocomplete="email" required>
+        <input class="input-field fade-up" type="text" placeholder="Adresse e-mail" autocomplete="email">
         <input class="input-field fade-up" type="password" placeholder="Mot de passe" autocomplete="current-password" required>
         <button class="btn-primary fade-up" type="submit">Se connecter</button>
       </form>
@@ -40,11 +40,11 @@
       <div class="header-left">
         <img class="header-logo" src="Ressources/Logos/logo1.png" alt="Flexla">
         <div class="header-greeting">
-          <h2>Bonjour Charly</h2>
-          <p id="dashboard-date">Vendredi 29 mai 2026</p>
+          <h2>Bonjour <span id="dashboard-prenom"></span></h2>
+          <p id="dashboard-date"></p>
         </div>
       </div>
-      <div class="avatar">CS</div>
+      <div class="avatar" id="dashboard-avatar"></div>
     </div>
 
     <div class="banner">
