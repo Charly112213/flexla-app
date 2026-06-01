@@ -85,6 +85,10 @@
         <div class="card-title">Sinistre &amp; Assistance</div>
         <div class="card-sub">Déclarer · Urgence</div>
       </div>
+      <div class="card card-full" data-page="page-contacter-flexla">
+        <div class="card-title">Contacter Flexla</div>
+        <div class="card-sub">Questions · Signaler un bug</div>
+      </div>
     </div>
 
     <div class="tesla-bar">
@@ -204,12 +208,55 @@
 
   <!-- ══ SINISTRE & ASSISTANCE ══ -->
   <div class="page" id="page-sinistre">
-    <div class="header">
+    <div class="sinistre-header">
       <div class="back-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
       <div class="header-title">Sinistre &amp; Assistance</div>
     </div>
-    <div class="placeholder">
-      <p>En cours de développement</p>
+    <iframe
+      src="https://drive.google.com/file/d/15m0uY6Z422IRK1xOTe_fpmrfm6-IxxMt/preview"
+      class="pdf-frame"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <!-- ══ CONTACTER FLEXLA ══ -->
+  <div class="page" id="page-contacter-flexla">
+    <div class="header">
+      <div class="back-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
+      <div class="header-title">Contacter Flexla</div>
+    </div>
+
+    <div id="contact-form-wrap">
+      <p class="intro">Choisissez un sujet et décrivez votre demande. Notre équipe vous répondra dans les meilleurs délais.</p>
+
+      <div class="section-label">Objet</div>
+      <div class="theme-chips" id="theme-chips">
+        <button class="chip" data-theme="contrat"  data-label="Mon contrat">Mon contrat</button>
+        <button class="chip" data-theme="vehicule" data-label="Mon véhicule">Mon véhicule</button>
+        <button class="chip" data-theme="echeance" data-label="Une échéance">Échéance</button>
+        <button class="chip" data-theme="document" data-label="Demande de document">Document</button>
+        <button class="chip" data-theme="bug"      data-label="Signaler un bug">Signaler un bug</button>
+        <button class="chip" data-theme="autre"    data-label="Autre">Autre</button>
+      </div>
+
+      <div id="bug-fields" class="bug-fields-hidden">
+        <div class="section-label" style="margin-top:20px;">Page concernée</div>
+        <input class="input-field" id="contact-page-field" type="text" placeholder="Ex. : Mes Échéances">
+      </div>
+
+      <div class="section-label" style="margin-top:20px;">Message</div>
+      <textarea class="input-field contact-textarea" id="contact-message" placeholder="Décrivez votre demande..."></textarea>
+
+      <button class="btn-primary contact-send-btn" id="btn-contact-send">Envoyer</button>
+    </div>
+
+    <div id="contact-success" class="contact-success-wrap" style="display:none;">
+      <div class="contact-success-circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="contact-success-title">Message envoyé</div>
+      <div class="contact-success-sub">Notre équipe vous répondra dans les meilleurs délais.</div>
+      <button class="btn-primary" id="btn-contact-new" style="margin-top:32px;">Nouveau message</button>
     </div>
   </div>
 

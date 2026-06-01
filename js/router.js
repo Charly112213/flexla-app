@@ -89,6 +89,72 @@ const Router = {
       const cards = `#${pageId} .doc-card, #${pageId} .card`;
       setTimeout(() => Animations.stagger(cards, 40), 80);
     }
+    if (pageId === 'page-contacter-flexla' && !this._contactInit) {
+      this._contactInit = true;
+      this._initContactForm();
+    }
+  },
+
+  _initContactForm() {
+    const formWrap   = document.getElementById('contact-form-wrap');
+    const successWrap= document.getElementById('contact-success');
+    const chips      = document.querySelectorAll('#theme-chips .chip');
+    const bugFields  = document.getElementById('bug-fields');
+    const textarea   = document.getElementById('contact-message');
+    const sendBtn    = document.getElementById('btn-contact-send');
+    const newBtn     = document.getElementById('btn-contact-new');
+    let selectedTheme = null;
+    let selectedLabel = null;
+
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chips.forEach(c => c.classList.remove('selected'));
+        chip.classList.add('selected');
+        selectedTheme = chip.dataset.theme;
+        selectedLabel = chip.dataset.label;
+        if (selectedTheme === 'bug') {
+          bugFields.classList.remove('bug-fields-hidden');
+          bugFields.classList.add('bug-fields-visible');
+        } else {
+          bugFields.classList.remove('bug-fields-visible');
+          bugFields.classList.add('bug-fields-hidden');
+        }
+      });
+    });
+
+    sendBtn.addEventListener('click', () => {
+      if (!selectedTheme) {
+        chips.forEach(c => { c.classList.add('shake'); setTimeout(() => c.classList.remove('shake'), 300); });
+        return;
+      }
+      const msg = textarea.value.trim();
+      if (!msg) {
+        textarea.style.borderColor = 'var(--err)';
+        setTimeout(() => textarea.style.borderColor = '', 1200);
+        return;
+      }
+      const pageField = document.getElementById('contact-page-field');
+      const pageConcernee = pageField ? pageField.value.trim() : '';
+      let body = msg;
+      if (selectedTheme === 'bug' && pageConcernee) body += `\n\nPage concernée : ${pageConcernee}`;
+      const subject = `[Espace chauffeur] ${selectedLabel}`;
+      window.open(`mailto:contact@goflexla.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
+      formWrap.style.display = 'none';
+      successWrap.style.display = 'flex';
+    });
+
+    newBtn.addEventListener('click', () => {
+      chips.forEach(c => c.classList.remove('selected'));
+      bugFields.classList.remove('bug-fields-visible');
+      bugFields.classList.add('bug-fields-hidden');
+      textarea.value = '';
+      const pageField = document.getElementById('contact-page-field');
+      if (pageField) pageField.value = '';
+      selectedTheme = null;
+      selectedLabel = null;
+      successWrap.style.display = 'none';
+      formWrap.style.display = 'block';
+    });
   },
 
   _fillDashboard() {
