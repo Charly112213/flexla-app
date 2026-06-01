@@ -89,6 +89,9 @@ const Router = {
       const cards = `#${pageId} .doc-card, #${pageId} .card`;
       setTimeout(() => Animations.stagger(cards, 40), 80);
     }
+    if (['page-mes-echeances', 'page-mes-factures'].includes(pageId)) {
+      setTimeout(() => Animations.animatePageCounters(pageId), 150);
+    }
     if (pageId === 'page-contacter-flexla' && !this._contactInit) {
       this._contactInit = true;
       this._initContactForm();

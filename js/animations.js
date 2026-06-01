@@ -1,15 +1,29 @@
 const Animations = {
 
-  countUp(el, target, duration = 800, suffix = '') {
+  countUp(el, target, duration = 800, suffix = '', decimals = 0) {
     if (!el) return;
+    const fmt = (val) => decimals > 0
+      ? val.toFixed(decimals).replace('.', ',')
+      : Math.round(val).toLocaleString('fr-FR');
     const start = performance.now();
     const update = (now) => {
       const p = Math.min((now - start) / duration, 1);
       const eased = 1 - Math.pow(1 - p, 3);
-      el.textContent = Math.round(eased * target).toLocaleString('fr-FR') + suffix;
+      el.textContent = fmt(eased * target) + suffix;
       if (p < 1) requestAnimationFrame(update);
+      else el.textContent = fmt(target) + suffix;
     };
     requestAnimationFrame(update);
+  },
+
+  animatePageCounters(pageId) {
+    const els = document.querySelectorAll(`#${pageId} [data-count]`);
+    els.forEach((el, i) => {
+      const target   = parseFloat(el.dataset.count);
+      const suffix   = el.dataset.suffix  || '';
+      const decimals = parseInt(el.dataset.decimals || '0');
+      setTimeout(() => this.countUp(el, target, 800, suffix, decimals), 80 + i * 60);
+    });
   },
 
   stagger(selector, delay = 40) {
