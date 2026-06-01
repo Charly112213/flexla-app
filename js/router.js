@@ -138,7 +138,7 @@ const Router = {
       let body = msg;
       if (selectedTheme === 'bug' && pageConcernee) body += `\n\nPage concernée : ${pageConcernee}`;
       const subject = `[Espace chauffeur] ${selectedLabel}`;
-      window.open(`mailto:contact@goflexla.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
+      window.open(`mailto:charly.stadler11@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
       formWrap.style.display = 'none';
       successWrap.style.display = 'flex';
     });
