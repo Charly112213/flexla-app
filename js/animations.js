@@ -87,7 +87,7 @@ const Animations = {
 
     if (amountEl) {
       setTimeout(() => {
-        this.countUp(amountEl, Data.echeance.montant, 800, ' €');
+        this.countUp(amountEl, Data.echeance.montantEstime, 800, ' €');
       }, 200);
     }
   },
