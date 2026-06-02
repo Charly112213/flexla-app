@@ -50,12 +50,12 @@
     <div class="banner">
       <div>
         <div class="banner-label">Mes échéances</div>
-        <div class="banner-date">3 juin 2026</div>
-        <div class="banner-km">2 187 km / 3 000 km</div>
-        <div class="banner-service">Prochain service — 15 juil. 2026</div>
+        <div class="banner-date" id="banner-date">3 juin 2026</div>
+        <div class="banner-km" id="banner-km">2 187 km / 3 000 km</div>
+        <div class="banner-service" id="banner-service">Prochain service — 15 juil. 2026</div>
       </div>
       <div class="banner-amount">
-        <div class="banner-amount-val">312 €</div>
+        <div class="banner-amount-val" id="banner-amount-val">312 €</div>
         <div class="banner-amount-label">estimé</div>
       </div>
     </div>
@@ -184,11 +184,11 @@
     <div class="prelevement-card">
       <div>
         <div class="prel-label">Date</div>
-        <div class="prel-date">3 juin 2026</div>
-        <div class="prel-sub">Dans 2 jours</div>
+        <div class="prel-date" id="ech-prel-date">3 juin 2026</div>
+        <div class="prel-sub" id="ech-prel-sub">Dans 2 jours</div>
       </div>
       <div class="prel-right">
-        <div class="prel-amount-val" data-count="20.5" data-suffix=" €" data-decimals="2">20,50 €</div>
+        <div class="prel-amount-val" id="ech-prel-montant" data-count="20.5" data-suffix=" €" data-decimals="2">20,50 €</div>
         <div class="prel-amount-label">ajustement estimé</div>
       </div>
     </div>
@@ -253,7 +253,7 @@
 
     <div class="section-label">Entretien</div>
     <div class="card-list">
-      <div class="item-card">
+      <div class="item-card" data-page="page-pneumatiques">
         <div class="item-left">
           <div class="item-info">
             <div class="item-title">Pneumatiques</div>
@@ -271,11 +271,11 @@
         </div>
         <div class="item-right"><div class="chevron"></div></div>
       </div>
-      <div class="item-card">
+      <div class="item-card" data-page="page-controle-technique">
         <div class="item-left">
           <div class="item-info">
             <div class="item-title">Contrôle Technique</div>
-            <div class="item-sub">Prochain : 3 août 2026</div>
+            <div class="item-sub" id="sv-ct-sub">Prochain : 3 août 2026</div>
           </div>
         </div>
         <div class="item-right"><div class="chevron"></div></div>
@@ -284,11 +284,11 @@
 
     <div class="section-label">Documents</div>
     <div class="card-list">
-      <div class="item-card">
+      <div class="item-card" data-page="page-suivi-photo">
         <div class="item-left">
           <div class="item-info">
             <div class="item-title">Suivi photo</div>
-            <div class="item-sub">12 photos · Dernière : 15 mai 2026</div>
+            <div class="item-sub">Contrôle périodique du véhicule</div>
           </div>
         </div>
         <div class="item-right"><div class="chevron"></div></div>
@@ -361,15 +361,203 @@
 
   <!-- ══ SINISTRE & ASSISTANCE ══ -->
   <div class="page" id="page-sinistre">
-    <div class="sinistre-header">
+    <div class="header">
       <div class="back-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
       <div class="header-title">Sinistre &amp; Assistance</div>
     </div>
-    <iframe
-      src="https://drive.google.com/file/d/15m0uY6Z422IRK1xOTe_fpmrfm6-IxxMt/preview"
-      class="pdf-frame"
-      allowfullscreen>
-    </iframe>
+
+    <div class="section-label">Documentation</div>
+    <div class="card-list" style="margin-bottom:28px;">
+      <div class="item-card" id="btn-fiche-assistance">
+        <div class="item-left">
+          <div class="item-info">
+            <div class="item-title">Fiche d'assistance</div>
+            <div class="item-sub">Procédures en cas de sinistre</div>
+          </div>
+        </div>
+        <div class="item-right"><span class="doc-tag">PDF</span><div class="chevron"></div></div>
+      </div>
+    </div>
+
+    <div class="section-label">Guide changement de pneus</div>
+    <div class="tuto-pneus-wrap">
+      <div class="tuto-img-slot"><span>Image à venir</span></div>
+      <div class="tuto-img-slot"><span>Image à venir</span></div>
+      <div class="tuto-img-slot"><span>Image à venir</span></div>
+    </div>
+
+    <div class="section-label" style="margin-top:28px;">Déclarer un sinistre</div>
+
+    <div id="sinistre-form-wrap">
+      <p class="intro" style="margin-bottom:16px;">Décrivez le sinistre et joignez des photos. L'équipe Flexla vous contactera rapidement.</p>
+
+      <div class="section-label">Description</div>
+      <textarea class="input-field contact-textarea" id="sinistre-description" placeholder="Décrivez ce qui s'est passé..."></textarea>
+
+      <div class="section-label" style="margin-top:16px;">Photos</div>
+      <div class="sinistre-photos-grid">
+        <div class="photo-zone"><input type="file" accept="image/*" class="photo-input"><img class="photo-preview" alt=""><div class="photo-empty"><div class="photo-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><span class="photo-label-text">Photo 1</span></div></div>
+        <div class="photo-zone"><input type="file" accept="image/*" class="photo-input"><img class="photo-preview" alt=""><div class="photo-empty"><div class="photo-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><span class="photo-label-text">Photo 2</span></div></div>
+        <div class="photo-zone"><input type="file" accept="image/*" class="photo-input"><img class="photo-preview" alt=""><div class="photo-empty"><div class="photo-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><span class="photo-label-text">Photo 3</span></div></div>
+        <div class="photo-zone"><input type="file" accept="image/*" class="photo-input"><img class="photo-preview" alt=""><div class="photo-empty"><div class="photo-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><span class="photo-label-text">Photo 4</span></div></div>
+      </div>
+
+      <button class="btn-primary" id="btn-sinistre-submit" style="margin-top:20px;">Envoyer la déclaration</button>
+    </div>
+
+    <div id="sinistre-success" class="contact-success-wrap" style="display:none;">
+      <div class="contact-success-circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="contact-success-title">Déclaration envoyée</div>
+      <div class="contact-success-sub">L'équipe Flexla vous contactera dans les plus brefs délais.</div>
+    </div>
+  </div>
+
+  <!-- ══ CONTRÔLE TECHNIQUE ══ -->
+  <div class="page" id="page-controle-technique">
+    <div class="header">
+      <div class="back-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
+      <div class="header-title">Contrôle Technique</div>
+    </div>
+
+    <div class="section-label">Prochain contrôle</div>
+    <div class="prelevement-card" style="margin-bottom:28px;">
+      <div>
+        <div class="prel-label">Date</div>
+        <div class="prel-date" id="ct-date-prochain">3 août 2026</div>
+        <div class="prel-sub" id="ct-jours">Dans 2 mois</div>
+      </div>
+      <div class="prel-right" style="align-self:center;">
+        <div class="status-dot ok" id="ct-statut-dot" style="width:10px;height:10px;"></div>
+      </div>
+    </div>
+
+    <div class="section-label">Centre de contrôle</div>
+    <div class="data-card" style="margin-bottom:28px;">
+      <div class="data-item-label">Centre</div>
+      <div class="data-item-val" id="ct-lieu" style="font-size:14px;margin-bottom:12px;">Contrôle Auto Plus</div>
+      <div class="divider"></div>
+      <div class="data-item-label" style="margin-top:12px;">Adresse</div>
+      <div id="ct-adresse" style="font-size:13px;color:var(--text-sub);margin-top:3px;line-height:1.4;">12 avenue des Minimes, 31200 Toulouse</div>
+    </div>
+
+    <div class="section-label">Historique</div>
+    <div class="data-card">
+      <div class="data-grid">
+        <div>
+          <div class="data-item-label">Dernier CT</div>
+          <div class="data-item-val" id="ct-date-dernier" style="font-size:13px;">3 août 2024</div>
+        </div>
+        <div>
+          <div class="data-item-label">Kilométrage</div>
+          <div class="data-item-val" id="ct-km-dernier" style="font-size:13px;">142 000 km</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SUIVI PHOTO ══ -->
+  <div class="page" id="page-suivi-photo">
+    <div class="header">
+      <div class="back-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
+      <div class="header-title">Suivi photo</div>
+    </div>
+    <p class="intro">Contrôles photographiques périodiques de votre véhicule.</p>
+    <div class="card-list" id="suivi-photo-list"></div>
+  </div>
+
+  <!-- ══ PNEUMATIQUES ══ -->
+  <div class="page" id="page-pneumatiques">
+    <div class="header">
+      <div class="back-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
+      <div class="header-title">Pneumatiques</div>
+    </div>
+
+    <div class="section-label">Véhicule</div>
+    <div class="data-card" style="margin-bottom:28px;">
+      <div class="data-grid">
+        <div><div class="data-item-label">Locataire</div><div class="data-item-val" style="font-size:13px;">Jean Dupont</div></div>
+        <div><div class="data-item-label">Véhicule</div><div class="data-item-val" style="font-size:13px;">Model 3 · AB-123-CD</div></div>
+      </div>
+      <div class="divider"></div>
+      <div class="data-grid">
+        <div><div class="data-item-label">Kilométrage actuel</div><div class="data-item-val accent" id="pneu-km-actuels" data-count="163144" data-suffix=" km">163 144 km</div></div>
+      </div>
+      <div class="divider"></div>
+      <div class="data-grid">
+        <div><div class="data-item-label">Taille avant</div><div class="data-item-val" id="pneu-taille-avant" style="font-size:13px;">205/55 R16</div></div>
+        <div><div class="data-item-label">Taille arrière</div><div class="data-item-val" id="pneu-taille-arriere" style="font-size:13px;">205/55 R16</div></div>
+      </div>
+      <div class="divider"></div>
+      <div class="data-grid">
+        <div><div class="data-item-label">Dernier chgt avant</div><div class="data-item-val" id="pneu-chgt-avant" style="font-size:13px;">145 200 km</div></div>
+        <div><div class="data-item-label">Dernier chgt arrière</div><div class="data-item-val" id="pneu-chgt-arriere" style="font-size:13px;">145 200 km</div></div>
+      </div>
+    </div>
+
+    <button class="btn-primary" data-page="page-pneus-form">Demander un changement de pneus</button>
+  </div>
+
+  <!-- ══ FORMULAIRE PNEUS ══ -->
+  <div class="page" id="page-pneus-form">
+    <div id="pneus-form-wrap">
+      <div class="header">
+        <div class="back-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
+        <div class="header-title">Changement de pneus</div>
+      </div>
+      <p class="intro">Prenez 2 photos par pneu : le pneu entier et le témoin d'usure.</p>
+
+      <div class="section-label">Photos</div>
+
+      <div class="pneu-group">
+        <div class="pneu-group-label">Avant gauche</div>
+        <div class="pneu-photos-row">
+          <div class="photo-zone"><input type="file" accept="image/*" class="photo-input"><img class="photo-preview" alt=""><div class="photo-empty"><div class="photo-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><span class="photo-label-text">Pneu</span></div></div>
+          <div class="photo-zone"><input type="file" accept="image/*" class="photo-input"><img class="photo-preview" alt=""><div class="photo-empty"><div class="photo-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><span class="photo-label-text">Témoin d'usure</span></div></div>
+        </div>
+      </div>
+
+      <div class="pneu-group">
+        <div class="pneu-group-label">Avant droit</div>
+        <div class="pneu-photos-row">
+          <div class="photo-zone"><input type="file" accept="image/*" class="photo-input"><img class="photo-preview" alt=""><div class="photo-empty"><div class="photo-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><span class="photo-label-text">Pneu</span></div></div>
+          <div class="photo-zone"><input type="file" accept="image/*" class="photo-input"><img class="photo-preview" alt=""><div class="photo-empty"><div class="photo-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><span class="photo-label-text">Témoin d'usure</span></div></div>
+        </div>
+      </div>
+
+      <div class="pneu-group">
+        <div class="pneu-group-label">Arrière droit</div>
+        <div class="pneu-photos-row">
+          <div class="photo-zone"><input type="file" accept="image/*" class="photo-input"><img class="photo-preview" alt=""><div class="photo-empty"><div class="photo-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><span class="photo-label-text">Pneu</span></div></div>
+          <div class="photo-zone"><input type="file" accept="image/*" class="photo-input"><img class="photo-preview" alt=""><div class="photo-empty"><div class="photo-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><span class="photo-label-text">Témoin d'usure</span></div></div>
+        </div>
+      </div>
+
+      <div class="pneu-group">
+        <div class="pneu-group-label">Arrière gauche</div>
+        <div class="pneu-photos-row">
+          <div class="photo-zone"><input type="file" accept="image/*" class="photo-input"><img class="photo-preview" alt=""><div class="photo-empty"><div class="photo-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><span class="photo-label-text">Pneu</span></div></div>
+          <div class="photo-zone"><input type="file" accept="image/*" class="photo-input"><img class="photo-preview" alt=""><div class="photo-empty"><div class="photo-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><span class="photo-label-text">Témoin d'usure</span></div></div>
+        </div>
+      </div>
+
+      <div class="section-label" style="margin-top:4px;">Signature</div>
+      <div class="signature-wrap">
+        <canvas id="signature-canvas" class="signature-canvas"></canvas>
+        <button type="button" id="btn-clear-sig" class="btn-clear-sig">Effacer</button>
+      </div>
+
+      <button class="btn-primary" id="btn-pneus-submit" style="margin-top:20px;">Valider et envoyer</button>
+    </div>
+
+    <div id="pneus-success" class="contact-success-wrap" style="display:none;">
+      <div class="contact-success-circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="contact-success-title">Demande envoyée</div>
+      <div class="contact-success-sub">L'équipe Flexla vous contactera pour planifier le changement.</div>
+    </div>
   </div>
 
   <!-- ══ CONTACTER FLEXLA ══ -->

@@ -1,23 +1,38 @@
-/* ── PAGE SINISTRE — PDF plein écran ── */
-#page-sinistre {
+/* ── TUTO PNEUS (Sinistre & Assistance) ── */
+.tuto-pneus-wrap {
   display: flex;
   flex-direction: column;
-  padding: 0;
-  overflow: hidden;
+  gap: 10px;
+  margin-bottom: 4px;
 }
-#page-sinistre .sinistre-header {
+.tuto-img-slot {
+  background: var(--bg-card);
+  border: 1px dashed #1e1e1e;
+  border-radius: var(--r-card);
+  height: 120px;
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: var(--pad-top) var(--pad-x) 16px;
-  flex-shrink: 0;
+  justify-content: center;
 }
-.pdf-frame {
-  flex: 1;
+.tuto-img-slot span {
+  font-size: 12px;
+  color: #2a2a2a;
+  letter-spacing: 0.3px;
+}
+.tuto-img-slot img {
   width: 100%;
-  min-height: 0;
-  border: none;
-  background: #000;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--r-card);
+  display: block;
+}
+
+/* ── GRILLE PHOTOS SINISTRE ── */
+.sinistre-photos-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 4px;
 }
 
 /* ── HEADER ── */
@@ -251,6 +266,77 @@
   border-top: 1.5px solid var(--text-muted);
   transform: rotate(45deg);
 }
+
+/* ── PNEUMATIQUES ── */
+.pneu-group { margin-bottom: 16px; }
+.pneu-group-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.8px;
+  text-transform: uppercase; color: var(--text-meta); margin-bottom: 8px;
+}
+.pneu-photos-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+.photo-zone {
+  position: relative;
+  background: #0D0D0D;
+  border: 1.5px dashed #222;
+  border-radius: 12px;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color var(--t-fast) linear;
+}
+.photo-input {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  opacity: 0; cursor: pointer; z-index: 3;
+}
+.photo-preview {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; z-index: 1; display: none;
+}
+.photo-empty {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 6px; pointer-events: none; z-index: 2;
+}
+.photo-plus {
+  width: 28px; height: 28px;
+  background: #1a1a1a; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+}
+.photo-plus svg { width: 14px; height: 14px; color: #444; }
+.photo-label-text { font-size: 11px; color: #333; letter-spacing: 0.3px; }
+.photo-zone.has-photo { border-style: solid; border-color: #2a2a2a; }
+.photo-zone.has-photo .photo-preview { display: block; }
+.photo-zone.has-photo .photo-empty { display: none; }
+
+/* ── SIGNATURE ── */
+.signature-wrap {
+  background: #0D0D0D;
+  border: 1.5px dashed #222;
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 4px;
+  position: relative;
+}
+.signature-canvas {
+  display: block;
+  width: 100%;
+  height: 100px;
+  touch-action: none;
+  cursor: crosshair;
+}
+.btn-clear-sig {
+  position: absolute; top: 8px; right: 10px;
+  background: none; border: none;
+  font-size: 11px; color: #333;
+  font-family: var(--font);
+  cursor: pointer; padding: 4px 6px;
+  transition: color var(--t-fast) linear;
+}
+.btn-clear-sig:active { color: #555; }
 
 /* ── CARD PLEINE LARGEUR ── */
 .card-full { grid-column: span 2; }

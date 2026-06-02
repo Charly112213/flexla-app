@@ -69,12 +69,17 @@ const Router = {
     }
     navbar.style.display = 'flex';
     const map = {
-      'page-dashboard':      'nav-accueil',
-      'page-mon-compte':     'nav-compte',
-      'page-mon-contrat':    'nav-contrat',
-      'page-mes-echeances':  'nav-echeances',
-      'page-suivi-vehicule': 'nav-entretiens',
-      'page-mes-factures':   'nav-factures',
+      'page-dashboard':           'nav-accueil',
+      'page-mon-compte':          'nav-compte',
+      'page-mon-contrat':         'nav-contrat',
+      'page-mes-echeances':       'nav-echeances',
+      'page-suivi-vehicule':      'nav-entretiens',
+      'page-pneumatiques':        'nav-entretiens',
+      'page-pneus-form':          'nav-entretiens',
+      'page-controle-technique':  'nav-entretiens',
+      'page-suivi-photo':         'nav-entretiens',
+      'page-sinistre':            null,
+      'page-mes-factures':        'nav-factures',
     };
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     const navId = map[pageId];
@@ -89,13 +94,64 @@ const Router = {
       const cards = `#${pageId} .doc-card, #${pageId} .card`;
       setTimeout(() => Animations.stagger(cards, 40), 80);
     }
-    if (['page-mes-echeances', 'page-mes-factures'].includes(pageId)) {
+    if (['page-mes-echeances', 'page-mes-factures', 'page-pneumatiques'].includes(pageId)) {
       setTimeout(() => Animations.animatePageCounters(pageId), 150);
+    }
+    if (pageId === 'page-pneus-form' && !this._pneusInit) {
+      this._pneusInit = true;
+      this._initPneusForm();
     }
     if (pageId === 'page-contacter-flexla' && !this._contactInit) {
       this._contactInit = true;
       this._initContactForm();
     }
+    if (pageId === 'page-sinistre' && !this._sinistreInit) {
+      this._sinistreInit = true;
+      this._initSinistreForm();
+    }
+    if (pageId === 'page-controle-technique') this._fillCT();
+    if (pageId === 'page-suivi-photo')        this._fillSuiviPhoto();
+    if (pageId === 'page-pneumatiques')       this._fillPneumatiques();
+    if (pageId === 'page-mes-echeances')      this._fillEcheances();
+  },
+
+  _initPneusForm() {
+    // Photos
+    document.querySelectorAll('#page-pneus-form .photo-input').forEach(input => {
+      input.addEventListener('change', () => {
+        if (!input.files || !input.files[0]) return;
+        const zone = input.closest('.photo-zone');
+        const preview = zone.querySelector('.photo-preview');
+        const reader = new FileReader();
+        reader.onload = e => { preview.src = e.target.result; zone.classList.add('has-photo'); };
+        reader.readAsDataURL(input.files[0]);
+      });
+    });
+
+    // Signature canvas
+    const canvas = document.getElementById('signature-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width  = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+    ctx.strokeStyle = '#fff';
+    ctx.lineWidth   = 1.5;
+    ctx.lineCap     = 'round';
+    ctx.lineJoin    = 'round';
+    let drawing = false;
+    const pos = (e) => { const r = canvas.getBoundingClientRect(); const t = e.touches ? e.touches[0] : e; return { x: t.clientX - r.left, y: t.clientY - r.top }; };
+    canvas.addEventListener('mousedown',  e => { drawing = true; const p = pos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); });
+    canvas.addEventListener('mousemove',  e => { if (!drawing) return; const p = pos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); });
+    canvas.addEventListener('mouseup',    () => drawing = false);
+    canvas.addEventListener('touchstart', e => { e.preventDefault(); drawing = true; const p = pos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); }, { passive: false });
+    canvas.addEventListener('touchmove',  e => { e.preventDefault(); if (!drawing) return; const p = pos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); }, { passive: false });
+    canvas.addEventListener('touchend',   () => drawing = false);
+    document.getElementById('btn-clear-sig').addEventListener('click', () => ctx.clearRect(0, 0, canvas.width, canvas.height));
+
+    // Submit
+    document.getElementById('btn-pneus-submit').addEventListener('click', () => {
+      document.getElementById('pneus-form-wrap').style.display = 'none';
+      document.getElementById('pneus-success').style.display   = 'flex';
+    });
   },
 
   _initContactForm() {
@@ -160,13 +216,95 @@ const Router = {
     });
   },
 
+  _initSinistreForm() {
+    const btn = document.getElementById('btn-fiche-assistance');
+    if (btn) btn.addEventListener('click', () => window.open('https://drive.google.com/file/d/15m0uY6Z422IRK1xOTe_fpmrfm6-IxxMt/view', '_blank'));
+
+    document.querySelectorAll('#page-sinistre .photo-input').forEach(input => {
+      input.addEventListener('change', () => {
+        if (!input.files || !input.files[0]) return;
+        const zone = input.closest('.photo-zone');
+        const preview = zone.querySelector('.photo-preview');
+        const reader = new FileReader();
+        reader.onload = e => { preview.src = e.target.result; zone.classList.add('has-photo'); };
+        reader.readAsDataURL(input.files[0]);
+      });
+    });
+
+    const submitBtn = document.getElementById('btn-sinistre-submit');
+    if (submitBtn) submitBtn.addEventListener('click', () => {
+      const desc = document.getElementById('sinistre-description');
+      if (!desc || !desc.value.trim()) {
+        if (desc) { desc.style.borderColor = 'var(--err)'; setTimeout(() => desc.style.borderColor = '', 1200); }
+        return;
+      }
+      document.getElementById('sinistre-form-wrap').style.display = 'none';
+      document.getElementById('sinistre-success').style.display   = 'flex';
+    });
+  },
+
   _fillDashboard() {
-    const prenom = document.getElementById('dashboard-prenom');
-    const date   = document.getElementById('dashboard-date');
-    const avatar = document.getElementById('dashboard-avatar');
-    if (prenom) prenom.textContent = Data.chauffeur.prenom;
-    if (date)   date.textContent   = Data.date;
-    if (avatar) avatar.textContent = Data.chauffeur.initiales;
+    const sel = id => document.getElementById(id);
+    if (sel('dashboard-prenom')) sel('dashboard-prenom').textContent = Data.chauffeur.prenom;
+    if (sel('dashboard-date'))   sel('dashboard-date').textContent   = Data.date;
+    if (sel('dashboard-avatar')) sel('dashboard-avatar').textContent = Data.chauffeur.initiales;
+    const e = Data.echeance;
+    if (sel('banner-date'))       sel('banner-date').textContent      = e.datePrelevement;
+    if (sel('banner-km'))         sel('banner-km').textContent        = `${e.kmActuels.toLocaleString('fr-FR')} km / ${e.kmForfait.toLocaleString('fr-FR')} km`;
+    if (sel('banner-service'))    sel('banner-service').textContent   = `Prochain service — ${e.prochaineService}`;
+    if (sel('banner-amount-val')) sel('banner-amount-val').textContent= `${e.montantEstime} €`;
+  },
+
+  _fillEcheances() {
+    const sel = id => document.getElementById(id);
+    const e = Data.echeance;
+    const setCount = (id, val) => { const el = sel(id); if (!el) return; el.dataset.count = val; };
+    if (sel('ech-prel-date'))   sel('ech-prel-date').textContent   = e.datePrelevement;
+    setCount('ech-prel-montant', e.enCours.montantEstime);
+  },
+
+  _fillPneumatiques() {
+    const sel = id => document.getElementById(id);
+    const p = Data.pneus;
+    const km = Data.echeance.enCours.kmActuels;
+    if (sel('pneu-km-actuels'))   { sel('pneu-km-actuels').dataset.count = km; sel('pneu-km-actuels').textContent = km.toLocaleString('fr-FR') + ' km'; }
+    if (sel('pneu-taille-avant'))   sel('pneu-taille-avant').textContent   = p.avant.taille;
+    if (sel('pneu-taille-arriere')) sel('pneu-taille-arriere').textContent = p.arriere.taille;
+    if (sel('pneu-chgt-avant'))     sel('pneu-chgt-avant').textContent     = p.avant.dernierChangement;
+    if (sel('pneu-chgt-arriere'))   sel('pneu-chgt-arriere').textContent   = p.arriere.dernierChangement;
+  },
+
+  _fillCT() {
+    const sel = id => document.getElementById(id);
+    const ct = Data.ct;
+    if (sel('ct-lieu'))         sel('ct-lieu').textContent         = ct.lieu;
+    if (sel('ct-adresse'))      sel('ct-adresse').textContent      = ct.adresse;
+    if (sel('ct-date-prochain'))sel('ct-date-prochain').textContent= ct.dateProchain;
+    if (sel('ct-date-dernier')) sel('ct-date-dernier').textContent = ct.dateDernier;
+    if (sel('ct-km-dernier'))   sel('ct-km-dernier').textContent   = ct.kmDernier.toLocaleString('fr-FR') + ' km';
+    if (sel('sv-ct-sub'))       sel('sv-ct-sub').textContent       = `Prochain : ${ct.dateProchain}`;
+    const dot = sel('ct-statut-dot');
+    if (dot) { dot.className = `status-dot ${ct.statut}`; }
+    const jours = sel('ct-jours');
+    if (jours) {
+      const couleur = ct.statut === 'ok' ? 'var(--ok)' : ct.statut === 'warn' ? 'var(--warn)' : 'var(--err)';
+      jours.style.color = couleur;
+    }
+  },
+
+  _fillSuiviPhoto() {
+    const list = document.getElementById('suivi-photo-list');
+    if (!list) return;
+    list.innerHTML = Data.suiviPhoto.map(s => `
+      <div class="item-card">
+        <div class="item-left">
+          <div class="item-info">
+            <div class="item-title">${s.label}</div>
+            <div class="item-sub">${s.nb} photos · ${s.date}</div>
+          </div>
+        </div>
+        <div class="item-right"><div class="chevron"></div></div>
+      </div>`).join('');
   },
 
   init() {
@@ -192,11 +330,9 @@ const Router = {
       });
     });
 
-    // Dashboard cards
-    document.querySelectorAll('.card[data-page]').forEach(card => {
-      card.addEventListener('click', () => {
-        this.navigate(card.dataset.page);
-      });
+    // Dashboard cards + item-cards + buttons avec data-page
+    document.querySelectorAll('.card[data-page], .item-card[data-page], button[data-page]').forEach(el => {
+      el.addEventListener('click', () => this.navigate(el.dataset.page));
     });
 
     // Init connexion animations
