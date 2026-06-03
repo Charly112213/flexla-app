@@ -262,9 +262,79 @@ const Router = {
   _fillEcheances() {
     const sel = id => document.getElementById(id);
     const e = Data.echeance;
-    const setCount = (id, val) => { const el = sel(id); if (!el) return; el.dataset.count = val; };
-    if (sel('ech-prel-date'))   sel('ech-prel-date').textContent   = e.datePrelevement;
-    setCount('ech-prel-montant', e.enCours.montantEstime);
+    const d = e.derniere;
+    const c = e.enCours;
+
+    if (sel('ech-prel-date')) sel('ech-prel-date').textContent = e.datePrelevement;
+    const montantEl = sel('ech-prel-montant');
+    if (montantEl) {
+      montantEl.dataset.count = e.montantEstime;
+      montantEl.textContent = e.montantEstime.toLocaleString('fr-FR') + ' €';
+    }
+
+    const lastCard = sel('ech-last-card');
+    if (lastCard) {
+      lastCard.innerHTML = `
+        <div class="periode-row">
+          <span class="periode-date">${d.periodeDebut}</span>
+          <div class="periode-sep"></div>
+          <span class="periode-date">${d.periodeFin}</span>
+        </div>
+        <div class="data-grid">
+          <div><div class="data-item-label">Km de départ</div><div class="data-item-val" data-count="${d.kmDebut}" data-suffix=" km">${d.kmDebut.toLocaleString('fr-FR')} km</div></div>
+          <div><div class="data-item-label">Km d'arrivée</div><div class="data-item-val" data-count="${d.kmFin}" data-suffix=" km">${d.kmFin.toLocaleString('fr-FR')} km</div></div>
+        </div>
+        <div class="divider"></div>
+        <div class="data-grid">
+          <div><div class="data-item-label">Km effectués</div><div class="data-item-val" data-count="${d.kmEffectues}" data-suffix=" km">${d.kmEffectues.toLocaleString('fr-FR')} km</div></div>
+          <div><div class="data-item-label">Km inclus</div><div class="data-item-val" data-count="${d.kmInclus}" data-suffix=" km">${d.kmInclus.toLocaleString('fr-FR')} km</div></div>
+        </div>
+        <div class="divider"></div>
+        <div class="data-grid">
+          <div><div class="data-item-label">Ajustement</div><div class="data-item-val ${d.ajustement > 0 ? 'orange' : ''}" data-count="${d.ajustement}" data-suffix=" km">${d.ajustement.toLocaleString('fr-FR')} km</div></div>
+          <div><div class="data-item-label">Montant payé</div><div class="data-item-val accent" data-count="${d.montantPaye}" data-suffix=",00 €">${d.montantPaye.toLocaleString('fr-FR')},00 €</div></div>
+        </div>`;
+    }
+
+    const curCard = sel('ech-cur-card');
+    if (curCard) {
+      const depasse = c.kmEffectues > c.kmInclus;
+      const pct = depasse
+        ? +(c.kmInclus / c.kmEffectues * 100).toFixed(1)
+        : +(c.kmEffectues / c.kmInclus * 100).toFixed(1);
+      const progressBg = depasse
+        ? `linear-gradient(to right,#4CAF50 ${pct}%,#FF9800 ${pct}%)`
+        : `linear-gradient(to right,#4CAF50 ${pct}%,#2A2A2A ${pct}%)`;
+      const statusClass = depasse ? 'warn' : 'ok';
+      const statusText = depasse
+        ? `Dépassement de ${(c.kmEffectues - c.kmInclus).toLocaleString('fr-FR')} km — ~${c.montantEstime.toFixed(2).replace('.', ',')} € estimé`
+        : `Dans le forfait — ${(c.kmInclus - c.kmEffectues).toLocaleString('fr-FR')} km restants`;
+
+      curCard.innerHTML = `
+        <div class="periode-row">
+          <span class="periode-date">${c.periodeDebut}</span>
+          <div class="periode-sep"></div>
+          <span class="periode-date">Aujourd'hui</span>
+        </div>
+        <div class="data-grid">
+          <div><div class="data-item-label">Km de départ</div><div class="data-item-val" data-count="${c.kmDebut}" data-suffix=" km">${c.kmDebut.toLocaleString('fr-FR')} km</div></div>
+          <div><div class="data-item-label">Km actuels</div><div class="data-item-val" data-count="${c.kmActuels}" data-suffix=" km">${c.kmActuels.toLocaleString('fr-FR')} km</div></div>
+        </div>
+        <div class="progress-section">
+          <div class="progress-header">
+            <span class="progress-km" data-count="${c.kmEffectues}" data-suffix=" km effectués">${c.kmEffectues.toLocaleString('fr-FR')} km effectués</span>
+            <span class="progress-limit">Forfait ${c.kmInclus.toLocaleString('fr-FR')} km</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" style="width:100%;background:${progressBg}"></div>
+            ${depasse ? `<div class="progress-marker" style="left:calc(${pct}% - 1px)"></div>` : ''}
+          </div>
+        </div>
+        <div class="status-row">
+          <div class="status-dot ${statusClass}"></div>
+          <span class="status-text ${statusClass}">${statusText}</span>
+        </div>`;
+    }
   },
 
   _fillPneumatiques() {

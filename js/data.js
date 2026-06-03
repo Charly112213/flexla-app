@@ -6,7 +6,7 @@ const ACCOUNTS = {
       modele:   'Model Y',
       plaque:   'EF-456-GH',
       statut:   'En ligne',
-      imageUrl: 'https://static-assets.tesla.com/configurator/compositor?context=design_studio_2&options=$MTY61,$PX02,$WY18P,$IBB3&view=FRONT34&model=my&size=1920&bkba_opt=1&crop=0,0,0,0&overlay=0&',
+      imageUrl: 'https://static-assets.tesla.com/configurator/compositor?context=design_studio_2&options=$MTY61,$PX02,$WY18P,$IBB3&view=STUD_FRONT34&model=my&size=1920&bkba_opt=1&crop=0,0,0,0&overlay=0&',
     },
     echeance: {
       datePrelevement:  '10 juin 2026',
@@ -116,7 +116,7 @@ const ACCOUNTS = {
       modele:   'Model Y',
       plaque:   'IJ-789-KL',
       statut:   'En ligne',
-      imageUrl: 'https://static-assets.tesla.com/configurator/compositor?context=design_studio_1&options=$MTY61,$PPSW,$WY18P,$IBB3&view=FRONT34&model=my&size=1920&bkba_opt=2&crop=0,0,0,0&overlay=0&',
+      imageUrl: 'https://static-assets.tesla.com/configurator/compositor?context=design_studio_2&options=$MTY61,$PPSW,$WY18P,$IBB3&view=STUD_FRONT34&model=my&size=1920&bkba_opt=1&crop=0,0,0,0&overlay=0&',
     },
     echeance: {
       datePrelevement:  '7 juin 2026',
