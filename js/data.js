@@ -10,7 +10,7 @@ const ACCOUNTS = {
     },
     echeance: {
       datePrelevement:  '10 juin 2026',
-      montantEstime:    248,
+      montantEstime:    223,
       kmActuels:        450,
       kmForfait:        700,
       prochaineService: '20 juil. 2026',
@@ -120,7 +120,7 @@ const ACCOUNTS = {
     },
     echeance: {
       datePrelevement:  '7 juin 2026',
-      montantEstime:    198,
+      montantEstime:    160,
       kmActuels:        320,
       kmForfait:        700,
       prochaineService: '1 août 2026',

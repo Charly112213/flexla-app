@@ -306,9 +306,11 @@ const Router = {
         ? `linear-gradient(to right,#4CAF50 ${pct}%,#FF9800 ${pct}%)`
         : `linear-gradient(to right,#4CAF50 ${pct}%,#2A2A2A ${pct}%)`;
       const statusClass = depasse ? 'warn' : 'ok';
+      const kmRestants = c.kmInclus - c.kmEffectues;
+      const remboursEur = (kmRestants * 0.10).toFixed(2).replace('.', ',');
       const statusText = depasse
-        ? `Dépassement de ${(c.kmEffectues - c.kmInclus).toLocaleString('fr-FR')} km — ~${c.montantEstime.toFixed(2).replace('.', ',')} € estimé`
-        : `Dans le forfait — ${(c.kmInclus - c.kmEffectues).toLocaleString('fr-FR')} km restants`;
+        ? `Dépassement de ${(c.kmEffectues - c.kmInclus).toLocaleString('fr-FR')} km — ~${c.montantEstime.toFixed(2).replace('.', ',')} € à payer`
+        : `Dans le forfait — remboursement ~${remboursEur} €`;
 
       curCard.innerHTML = `
         <div class="periode-row">
