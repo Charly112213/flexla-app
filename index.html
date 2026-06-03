@@ -26,7 +26,6 @@
         <input class="input-field fade-up" type="text" placeholder="Adresse e-mail" autocomplete="email">
         <input class="input-field fade-up" type="password" placeholder="Mot de passe" autocomplete="current-password" required>
         <button class="btn-primary fade-up" type="submit">Se connecter</button>
-        <p id="login-error" style="display:none;color:var(--err);font-size:13px;text-align:center;margin-top:4px;">Email ou mot de passe incorrect.</p>
       </form>
 
       <p class="connexion-link fade-up">Mot de passe oublié ?</p>
@@ -189,16 +188,60 @@
         <div class="prel-sub" id="ech-prel-sub">Dans 2 jours</div>
       </div>
       <div class="prel-right">
-        <div class="prel-amount-val" id="ech-prel-montant" data-count="312" data-suffix=" €">312 €</div>
-        <div class="prel-amount-label">montant estimé</div>
+        <div class="prel-amount-val" id="ech-prel-montant" data-count="20.5" data-suffix=" €" data-decimals="2">20,50 €</div>
+        <div class="prel-amount-label">ajustement estimé</div>
       </div>
     </div>
 
     <div class="section-label">Dernière échéance</div>
-    <div class="data-card" id="ech-last-card"></div>
+    <div class="data-card">
+      <div class="periode-row">
+        <span class="periode-date">21/05/2026</span>
+        <div class="periode-sep"></div>
+        <span class="periode-date">28/05/2026</span>
+      </div>
+      <div class="data-grid">
+        <div><div class="data-item-label">Km de départ</div><div class="data-item-val" data-count="159669" data-suffix=" km">159 669 km</div></div>
+        <div><div class="data-item-label">Km d'arrivée</div><div class="data-item-val" data-count="162239" data-suffix=" km">162 239 km</div></div>
+      </div>
+      <div class="divider"></div>
+      <div class="data-grid">
+        <div><div class="data-item-label">Km effectués</div><div class="data-item-val" data-count="2570" data-suffix=" km">2 570 km</div></div>
+        <div><div class="data-item-label">Km inclus</div><div class="data-item-val" data-count="700" data-suffix=" km">700 km</div></div>
+      </div>
+      <div class="divider"></div>
+      <div class="data-grid">
+        <div><div class="data-item-label">Ajustement</div><div class="data-item-val orange" data-count="1870" data-suffix=" km">1 870 km</div></div>
+        <div><div class="data-item-label">Montant payé</div><div class="data-item-val accent" data-count="187" data-suffix=",00 €">187,00 €</div></div>
+      </div>
+    </div>
 
     <div class="section-label">Période en cours</div>
-    <div class="data-card" id="ech-cur-card"></div>
+    <div class="data-card">
+      <div class="periode-row">
+        <span class="periode-date">29/05/2026</span>
+        <div class="periode-sep"></div>
+        <span class="periode-date">Aujourd'hui</span>
+      </div>
+      <div class="data-grid">
+        <div><div class="data-item-label">Km de départ</div><div class="data-item-val" data-count="162239" data-suffix=" km">162 239 km</div></div>
+        <div><div class="data-item-label">Km actuels</div><div class="data-item-val" data-count="163144" data-suffix=" km">163 144 km</div></div>
+      </div>
+      <div class="progress-section">
+        <div class="progress-header">
+          <span class="progress-km" data-count="905" data-suffix=" km effectués">905 km effectués</span>
+          <span class="progress-limit">Forfait 700 km</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" style="width:100%;background:linear-gradient(to right,#4CAF50 77.3%,#FF9800 77.3%)"></div>
+          <div class="progress-marker" style="left:calc(77.3% - 1px)"></div>
+        </div>
+      </div>
+      <div class="status-row">
+        <div class="status-dot warn"></div>
+        <span class="status-text warn">Dépassement de 205 km — ~20,50 € estimé</span>
+      </div>
+    </div>
   </div>
 
   <!-- ══ SUIVI DE MON VÉHICULE ══ -->

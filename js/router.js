@@ -253,90 +253,14 @@ const Router = {
     if (sel('banner-km'))         sel('banner-km').textContent        = `${e.kmActuels.toLocaleString('fr-FR')} km / ${e.kmForfait.toLocaleString('fr-FR')} km`;
     if (sel('banner-service'))    sel('banner-service').textContent   = `Prochain service — ${e.prochaineService}`;
     if (sel('banner-amount-val')) sel('banner-amount-val').textContent= `${e.montantEstime} €`;
-    const teslaModel = document.querySelector('.tesla-model');
-    if (teslaModel) teslaModel.textContent = Data.vehicule.modele;
-    const teslaCar = document.querySelector('.tesla-car');
-    if (teslaCar) teslaCar.src = Data.vehicule.imageUrl;
   },
 
   _fillEcheances() {
     const sel = id => document.getElementById(id);
     const e = Data.echeance;
-    const d = e.derniere;
-    const c = e.enCours;
-
-    if (sel('ech-prel-date')) sel('ech-prel-date').textContent = e.datePrelevement;
-    const montantEl = sel('ech-prel-montant');
-    if (montantEl) {
-      montantEl.dataset.count = e.montantEstime;
-      montantEl.textContent = e.montantEstime.toLocaleString('fr-FR') + ' €';
-    }
-
-    const lastCard = sel('ech-last-card');
-    if (lastCard) {
-      lastCard.innerHTML = `
-        <div class="periode-row">
-          <span class="periode-date">${d.periodeDebut}</span>
-          <div class="periode-sep"></div>
-          <span class="periode-date">${d.periodeFin}</span>
-        </div>
-        <div class="data-grid">
-          <div><div class="data-item-label">Km de départ</div><div class="data-item-val" data-count="${d.kmDebut}" data-suffix=" km">${d.kmDebut.toLocaleString('fr-FR')} km</div></div>
-          <div><div class="data-item-label">Km d'arrivée</div><div class="data-item-val" data-count="${d.kmFin}" data-suffix=" km">${d.kmFin.toLocaleString('fr-FR')} km</div></div>
-        </div>
-        <div class="divider"></div>
-        <div class="data-grid">
-          <div><div class="data-item-label">Km effectués</div><div class="data-item-val" data-count="${d.kmEffectues}" data-suffix=" km">${d.kmEffectues.toLocaleString('fr-FR')} km</div></div>
-          <div><div class="data-item-label">Km inclus</div><div class="data-item-val" data-count="${d.kmInclus}" data-suffix=" km">${d.kmInclus.toLocaleString('fr-FR')} km</div></div>
-        </div>
-        <div class="divider"></div>
-        <div class="data-grid">
-          <div><div class="data-item-label">Ajustement</div><div class="data-item-val ${d.ajustement > 0 ? 'orange' : ''}" data-count="${d.ajustement}" data-suffix=" km">${d.ajustement.toLocaleString('fr-FR')} km</div></div>
-          <div><div class="data-item-label">Montant payé</div><div class="data-item-val accent" data-count="${d.montantPaye}" data-suffix=",00 €">${d.montantPaye.toLocaleString('fr-FR')},00 €</div></div>
-        </div>`;
-    }
-
-    const curCard = sel('ech-cur-card');
-    if (curCard) {
-      const depasse = c.kmEffectues > c.kmInclus;
-      const pct = depasse
-        ? +(c.kmInclus / c.kmEffectues * 100).toFixed(1)
-        : +(c.kmEffectues / c.kmInclus * 100).toFixed(1);
-      const progressBg = depasse
-        ? `linear-gradient(to right,#4CAF50 ${pct}%,#FF9800 ${pct}%)`
-        : `linear-gradient(to right,#4CAF50 ${pct}%,#2A2A2A ${pct}%)`;
-      const statusClass = depasse ? 'warn' : 'ok';
-      const kmRestants = c.kmInclus - c.kmEffectues;
-      const remboursEur = (kmRestants * 0.10).toFixed(2).replace('.', ',');
-      const statusText = depasse
-        ? `Dépassement de ${(c.kmEffectues - c.kmInclus).toLocaleString('fr-FR')} km — ~${c.montantEstime.toFixed(2).replace('.', ',')} € à payer`
-        : `Dans le forfait — remboursement ~${remboursEur} €`;
-
-      curCard.innerHTML = `
-        <div class="periode-row">
-          <span class="periode-date">${c.periodeDebut}</span>
-          <div class="periode-sep"></div>
-          <span class="periode-date">Aujourd'hui</span>
-        </div>
-        <div class="data-grid">
-          <div><div class="data-item-label">Km de départ</div><div class="data-item-val" data-count="${c.kmDebut}" data-suffix=" km">${c.kmDebut.toLocaleString('fr-FR')} km</div></div>
-          <div><div class="data-item-label">Km actuels</div><div class="data-item-val" data-count="${c.kmActuels}" data-suffix=" km">${c.kmActuels.toLocaleString('fr-FR')} km</div></div>
-        </div>
-        <div class="progress-section">
-          <div class="progress-header">
-            <span class="progress-km" data-count="${c.kmEffectues}" data-suffix=" km effectués">${c.kmEffectues.toLocaleString('fr-FR')} km effectués</span>
-            <span class="progress-limit">Forfait ${c.kmInclus.toLocaleString('fr-FR')} km</span>
-          </div>
-          <div class="progress-track">
-            <div class="progress-fill" style="width:100%;background:${progressBg}"></div>
-            ${depasse ? `<div class="progress-marker" style="left:calc(${pct}% - 1px)"></div>` : ''}
-          </div>
-        </div>
-        <div class="status-row">
-          <div class="status-dot ${statusClass}"></div>
-          <span class="status-text ${statusClass}">${statusText}</span>
-        </div>`;
-    }
+    const setCount = (id, val) => { const el = sel(id); if (!el) return; el.dataset.count = val; };
+    if (sel('ech-prel-date'))   sel('ech-prel-date').textContent   = e.datePrelevement;
+    setCount('ech-prel-montant', e.enCours.montantEstime);
   },
 
   _fillPneumatiques() {
@@ -384,27 +308,11 @@ const Router = {
   },
 
   init() {
+    // Connexion submit — n'importe quoi fonctionne
     const form = document.getElementById('form-connexion');
     if (form) {
       form.addEventListener('submit', (e) => {
         e.preventDefault();
-        const emailEl = form.querySelector('input[type="text"]');
-        const passEl  = form.querySelector('input[type="password"]');
-        const email   = emailEl.value.trim().toLowerCase();
-        const pass    = passEl.value;
-        const account = ACCOUNTS[email];
-        const errEl   = document.getElementById('login-error');
-
-        if (!account || account.password !== pass) {
-          passEl.style.borderColor = 'var(--err)';
-          if (errEl) errEl.style.display = 'block';
-          setTimeout(() => { passEl.style.borderColor = ''; }, 1500);
-          return;
-        }
-
-        if (errEl) errEl.style.display = 'none';
-        Data = account;
-        Data.date = new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
         this._fillDashboard();
         this.navigate('page-dashboard');
       });
