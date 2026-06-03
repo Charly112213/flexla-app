@@ -253,6 +253,10 @@ const Router = {
     if (sel('banner-km'))         sel('banner-km').textContent        = `${e.kmActuels.toLocaleString('fr-FR')} km / ${e.kmForfait.toLocaleString('fr-FR')} km`;
     if (sel('banner-service'))    sel('banner-service').textContent   = `Prochain service — ${e.prochaineService}`;
     if (sel('banner-amount-val')) sel('banner-amount-val').textContent= `${e.montantEstime} €`;
+    const teslaModel = document.querySelector('.tesla-model');
+    if (teslaModel) teslaModel.textContent = Data.vehicule.modele;
+    const teslaCar = document.querySelector('.tesla-car');
+    if (teslaCar) teslaCar.src = Data.vehicule.imageUrl;
   },
 
   _fillEcheances() {
@@ -308,11 +312,27 @@ const Router = {
   },
 
   init() {
-    // Connexion submit — n'importe quoi fonctionne
     const form = document.getElementById('form-connexion');
     if (form) {
       form.addEventListener('submit', (e) => {
         e.preventDefault();
+        const emailEl = form.querySelector('input[type="text"]');
+        const passEl  = form.querySelector('input[type="password"]');
+        const email   = emailEl.value.trim().toLowerCase();
+        const pass    = passEl.value;
+        const account = ACCOUNTS[email];
+        const errEl   = document.getElementById('login-error');
+
+        if (!account || account.password !== pass) {
+          passEl.style.borderColor = 'var(--err)';
+          if (errEl) errEl.style.display = 'block';
+          setTimeout(() => { passEl.style.borderColor = ''; }, 1500);
+          return;
+        }
+
+        if (errEl) errEl.style.display = 'none';
+        Data = account;
+        Data.date = new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
         this._fillDashboard();
         this.navigate('page-dashboard');
       });
